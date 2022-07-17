@@ -1,0 +1,59 @@
+https://rogerdudler.github.io/git-guide/index.pt_BR.html
+
+git init (cria um repositório)
+
+git push origin master (envia pro site de master para origin)
+
+git pull origin master (recebe do site de origin para master)
+
+git status (olha as alterações)
+
+git add -A (adiciona as alterações)
+
+git commit -m "Meu commit!" (commita as alterações)
+
+git log (verifica os commit)
+
+git remote (verifica usuários remotos)
+
+git remote -v (verifica usuários remotos se tem fetch ou pull liberados)
+
+git remote add origin <servidor> (adiciona um usuário remoto)
+
+git clone https://link (clona um repositório)
+ 
+git checkout -b willas (cria branch willas = usuário local)
+
+git checkout willas (acessa branch willas)
+
+git branch -d willas (delete branch willas)
+
+git merge master (copia dados de branch master para o atual)
+
+clear (limpa tela)
+
+ctrl + Q (sai de loop)
+
+Forçar o PULL
+
+git fetch --all
+git reset --hard origin/master
+git pull origin master (pull normal)
+
+
+Salvar senha no git:
+
+No diretório "C:\Users\SUPORTE04" abrir o arquivo ".gitconfig" adicionar a linha
+
+[credential]
+	helper = wincred
+
+ou não adicionar essa linha.
+
+
+Não salvar senha no git:
+
+Acrescente a linha,
+
+[credential]
+	helper =
