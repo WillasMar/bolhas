@@ -4,38 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bolhas</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
+    <title>Jogo Estoura Bolhas</title>
+    <link rel="shortcut icon" href="./img/bubble_ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <main>
-        <header>
-            <div class="logo">Bolhas</div>
-            <div class="usuario">
-                <div class="img"></div>
-                <div class="nome"></div>
-                <div class="nivel"></div>
-                <div class="record"></div>
-            </div>
-        </header>
-        <canvas></canvas>
-        <img src="assets/img/canvas/bubble.png" alt="">
-        <footer>
-            <div class="footerItem sobre">
-                <div class="by">
-                    <div class="front-end"><u><b>Front-End:</b></u> Leo Pereira</div>
-                    <div class="back-end"><u><b>Back-End:</b></u> Willas Mar</div>
-                </div>
-                <div class="sugestoes">
-                    <img src="assets/img/footer/carta.png">
-                    <span>Mande Sugestões</span>
-                </div>
-            </div>
-            <div class="footerItem copy">
-                @Todos os direitos reservados
-            </div>
-        </footer>
-    </main>
+    <!-- Interface Menu Principal -->
+    <div id="theHeader">Jogo da Bolha</div>
+    <div id="startGameBtn" onclick="runGame()" onmouseover="this.style.backgroundColor = 'goldenrod'" onmouseout="this.style.backgroundColor = 'gold'">Inciar</div>
+    <div id="creditBtn" onclick="showCredits()" onmouseover="this.style.backgroundColor = 'goldenrod'" onmouseout="this.style.backgroundColor = 'gold'">Créditos</div>
+    <div id="credits">Feito por Willas e Leandro</div>
+    <div id="backBtn" onclick="goBack()" onmouseover="this.style.backgroundColor = 'goldenrod'" onmouseout="this.style.backgroundColor = 'gold'">Voltar</div>
+    <!-- Fim da Interface do Menu Principal -->
+
+    <!-- Cria a Interface do Jogo -->
+    <div id="main">
+        <canvas width="800" height="600"></canvas>
+    </div>
+    <!-- Fim da Interface do Jogo -->
+
+    <img src="./img/bubble.png" alt="">
+    <!-- <progress value="0" max="100" id="scoreBar">0%</progress> -->
+
+    <!-- JavaScript -->
+    <script src="./js/UI.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
