@@ -27,7 +27,7 @@ class Particle {
         this.posY = HEIGHT;
         this.width = Math.floor(Math.random() * (90 - 15) + 15);
         this.speed = Math.random() * (4 - 2) + 2;
-        this.image = document.querySelector('img');
+        this.image = document.querySelector('#imgCanvas');
         this.filterColor = `hue-rotate(${Math.floor(Math.random() * 360)}deg) opacity(${Math.floor(Math.random() * (100 - 30) + 30)}%)`;
     }
     draw() {
@@ -91,6 +91,7 @@ function deleteParticle(e) {
         }
     })
 };
+
 canvas.addEventListener('mousedown', deleteParticle);
 
 function anim() {

@@ -8,7 +8,7 @@ body {
 #main{
     display: none;
 }
- #startGameBtn, #creditBtn, #backBtn{
+#startGameBtn, #creditBtn, #backBtn{
     text-align: center;
     vertical-align: middle;
     border: 2px solid goldenrod;
@@ -43,7 +43,7 @@ canvas {
     background-color: #e6e6e6;
     cursor: url('../img/alfi.cur'), default;
 }
-img {
+#imgCanvas {
     display: none;
 }
 /* 
