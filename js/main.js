@@ -1,7 +1,10 @@
+import { backBtn, creditBtn, newGame } from "./UI.js";
+
 const canvas = document.querySelector('canvas');
+const display = document.querySelector('body');
 const ctx = canvas.getContext('2d');
-WIDTH = canvas.width;
-HEIGHT = canvas.height;
+const WIDTH = canvas.width = display.clientWidth;
+const HEIGHT = canvas.height = display.clientHeight;
 // const scoreBar = document.querySelector('#scoreBar');
 
 // Áudios
@@ -91,10 +94,9 @@ function deleteParticle(e) {
         }
     })
 };
-
 canvas.addEventListener('mousedown', deleteParticle);
 
-function anim() {
+export function anim() {
     ctx.clearRect(0,0, WIDTH, HEIGHT);
     gameFrame++;
     drawParticles();
@@ -103,3 +105,8 @@ function anim() {
     ctx.fillText('Pontuação: ' + score, 10, 30);
     requestAnimationFrame(anim);
 };
+
+// EventListners
+newGame
+creditBtn
+backBtn
