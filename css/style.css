@@ -1,3 +1,10 @@
+/* Snippet box-sizing */
+html { box-sizing: border-box; }
+*, *::before, *::after {box-sizing: inherit;}
+* { margin: 0; padding: 0; overflow: hidden; }
+html, body { height: 100%;}
+/* Fim Snippet */
+
 body {
     background: #202028;
     color: #fff;
@@ -21,6 +28,11 @@ body {
     width: 5em;
     margin: 5px auto;
     cursor: pointer;
+    transition: width 0.3s, background-color 0.5s;
+}
+#startGameBtn:hover, #creditBtn:hover, #backBtn:hover{
+    background-color: goldenrod;
+    width: 5.2em;
 }
 #theHeader{
     margin: auto;
@@ -39,7 +51,7 @@ body {
 #backBtn{
     display: none;
 }
-canvas {
+#main > canvas {
     background-color: #e6e6e6;
     cursor: url('../img/alfi.cur'), default;
 }
