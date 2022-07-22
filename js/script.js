@@ -1,6 +1,8 @@
 //Jquery
 $(function(){
-    //requisitos de senha
+    //variáveis globais
+    var ajaxG = 'php/ajax.php'
+    var usuarioG = ''
 	var requisitosSenhaG = '<div class="forcaPass-requisitos-forca">'+
             '<span>Excelente</span>'+
             '<span>Tamanho mínimo de 10 dígitos</span>'+
@@ -27,14 +29,41 @@ $(function(){
             '<span>Caracteres Especiais</span>'+                        		
             '<span>Até 2 caractere repetidos</span>'+
         '</div>'
+    
+    $('.forcaPass-requisitos').html(requisitosSenhaG)
 
-    //define os requisitos da senha
-	$('.campo .forcaPass-requisitos').html(requisitosSenhaG)
+//ajax
+    //login
+    function login(usuario, senha){
+        let resultado = false
 
-    //focar no primeiro campo
-	$('.campos > .campo:nth-child(1) input').focus()
+        $.ajax({
+            url: ajaxG,
+            data: {login: true, usuario:usuario, senha:senha},
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            success: function(retorno){ resultado = retorno }
+        }).fail(function(jqXHR, textStatus){
+            console.log( 'Falha no ajax: login()' )
+        })
+
+        return resultado
+    }
+
 
 //eventos
+    //ao clicar no botão de login
+    $('#btnLogin').click(function(){
+        let tabela = $(this).attr('data-tabela')
+        let usuario = $(this).closest('#formLogin').find('#inputUsuario').val()
+        let senha = $(this).closest('#formLogin').find('#inputSenha').val()
+       
+        usuarioG = login(usuario, senha)
+
+        console.log(usuarioG)
+    })
+
     //ao focar no input
     $('.campo input').focus(function(){
         //busca label do campo
@@ -169,6 +198,12 @@ $(function(){
             $(requisitos).hide() //oculta requisitos
             $(requisitos).attr('data-status', 0) //muda status pra fechado
         }
+    })
+
+    //ao clicar no botão de zerar input
+    $('.campo .btnLimparInput').click(function(){
+        $(this).parent().find('input').val('')
+        $(this).parent().find('input').focus()
     })
 
     //ao passar mouse no botão de ver senha

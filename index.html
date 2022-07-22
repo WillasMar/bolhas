@@ -7,19 +7,21 @@
     <title>Jogo Estoura Bolhas</title>
     <link rel="shortcut icon" href="./img/bubble_ico.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/stylePadrao.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css">    
 </head>
 <body>
-    
     <!-- login -->
-    <div class="login">
-        <div class="area">
-            <form id="formLogin" class="formLogin" method="POST">
-                <div class="titulo">Login</div>
+    <div class="area areaTopo">
+        <div class="areaInt areaIntTopo">
+            <div class="logo logoTopo">
+                <img src="img/bubble.png" alt="">
+            </div>
+            <form id="formLogin" class="formLogin"  method="POST">
                 <div class="campos camposFormLogin">
                     <div class="campo">
                         <label for="inputUsuario" class="label">Usuário</label>
                         <input type="text" name="usuario" id="inputUsuario">
+                        <div class="btnLimparInput" title="Limpar campo!">x</div>
                     </div>
                     <div class="campo">
                         <label for="inputSenha" class="label">Senha</label>                        
@@ -34,10 +36,12 @@
                         <img src="img/campos/olhoFechado.png" class="btnVerSenha" data-status="0">
                     </div>
                 </div>
-                <div class="botoes botoesFormLogin">
-                    <div class="botao botao-dark btnLogin">Entrar</div>
+                <div class="botoes">
+                    <div class="botao botao-turquesa-escura" id="btnLogin">Entrar</div>
+                    <div class="botao botao-dark" id="btnCadastrar">Cadastrar</div>
                 </div>
             </form>
+            <div class="areaUsuario">Usuário</div>
         </div>
     </div>
     <!-- Interface Menu Principal -->

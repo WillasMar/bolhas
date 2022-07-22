@@ -1,13 +1,57 @@
 *{
+    font-family: arial;
     box-sizing: border-box;
 }
-.area{
-    margin: 0px 50px;
+body{
+    margin: 0px;
 }
-.formLogin{
+:root{
+    --formBg: white;
+    --tituloForm: #000;
+}
+.area{
     width: 100%;
-    max-width: 400px;
-    margin: auto;
+}
+.areaInt{
+    width: 100%;
+    margin: 0px 10px;
+}
+.areaTopo{
+    display: flex;    
+    box-shadow: 0px 0px 3px 1px #fff;
+    background-color: aliceblue;
+}
+.areaIntTopo{
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+.logo img{
+    width: 50px;
+}
+form{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: var(--formBg);
+    margin: 30px auto;
+}
+form .titulo{
+    position: absolute;
+    color: var(--tituloForm);    
+    background-color: var(--formBg);
+    margin-top: -30px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    font-size: 20px;
+    font-family: cursive;
 }
 
 /* campos */
@@ -15,20 +59,21 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 20px
 }
 .campo{
     width: 100%;
     height: 30px;
     border: 1px solid #ccc;                
     background-color: #fff;        
-    padding: 0px 5px;
-    margin-bottom: 5px;
+    padding-left: 5px;
+    margin-bottom: 15px;
     overflow: hidden;
     border-radius: 3px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    cursor: pointer;
+    cursor: text;
     font-family: cursive, arial;
 }
 .campo .label{
@@ -36,8 +81,10 @@
     position: absolute;
     border-radius: 5px;
     padding: 0px 5px;
+    cursor: text;
     color: #555;
     font-size: 20px;
+    font-family: cursive;
     /*transition: all 0.3s;*/ /*para caso não usar o animate do jquery*/
 }    
 .campo .labelFocus{ /*usar em conjunto com a classe .label. Não precisa dessa classe caso use o animate do jquery*/
@@ -47,21 +94,34 @@
 }
 .campo input{
     width: 100%;
-    font-size: 14px;
-    font-weight: bold;
     border: 0px;
     outline: 0;
+    font-size: 14px;
+    font-family: cursive;
+    font-weight: bold;    
     color: #272727;
     text-transform: uppercase;
 }
 .campo .inputSenha{
     text-transform: inherit;
 }
+.campo .btnLimparInput{       
+    background-color: #ccc;
+    padding: 4px 10px;
+    cursor: pointer;
+    color: #666;
+    font-family: arial;
+    font-size: 18px;
+}
+.campo .btnZeraInput:hover{
+    background-color: #aaa;
+    color: #333;
+}
 .campo .btnVerSenha{
     width: 30px;
     background-color: #ccc;
-    margin-right: -5px;
     padding: 2px;
+    cursor: pointer;
 }
 
 /* Requisitos senha */
@@ -130,15 +190,17 @@
     text-decoration: underline;
 }
 
-/* botão */
+/* botões */
 .botoes{
+    width: 100%;
     display: flex;
 }
 .botoes .botao{
     width: 100%;
+    margin: 10px;
 }
 .botao{
-    height: 35px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,4 +232,43 @@
 .botao-dark:hover{
     background: linear-gradient(0deg, #000, #aaa);
     color: #fff;
+}
+.botao-turquesa-escura{
+    background: linear-gradient(0deg, #00ced1, #fff);
+    color: #333;
+}
+.botao-turquesa-escura:hover{
+    background: linear-gradient(0deg, #00ced1, #fff);
+    color: #000;
+}
+
+/* form de login */
+.formLogin{
+    width: auto;
+    margin: 0px;
+    flex-direction: row;
+    align-items: center;
+    background-color: transparent;
+    border: 0px;
+}
+.formLogin .campos{
+    flex-direction: row;
+    margin-top: 0px;
+}
+.formLogin .campo{
+    margin-right: 5px;
+    margin-bottom: 0px;
+}
+.formLogin .botoes{
+    width: auto;
+}
+.formLogin .botao{
+    width: 130px;
+    margin: 0px;
+    margin-left: 5px;
+}
+
+/* area usuário */
+.areaUsuario{
+    display: none;
 }
