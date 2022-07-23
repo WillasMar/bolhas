@@ -211,7 +211,7 @@ form .titulo{
     border: 1px solid #aaa;
     cursor: pointer;
     color: #666;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     font-family: cursive;
     transition: all 0.3s;
@@ -220,7 +220,7 @@ form .titulo{
     background-color: #aaa;
     background: linear-gradient(0deg, #aaa, #ddd);
     color: #333;
-    font-size: 26px;
+    font-size: 19px;
 }
 .botao:active{
     font-size: 24px;
@@ -244,6 +244,7 @@ form .titulo{
 
 /* form de login */
 .formLogin{
+    display: none;
     width: auto;
     margin: 0px;
     flex-direction: row;
@@ -270,5 +271,31 @@ form .titulo{
 
 /* area usuário */
 .areaUsuario{
+    width: 100%;
     display: none;
+    justify-content: flex-end;
+    align-items: center;
+}
+.areaUsuario .usuario{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+.areaUsuario .usuario:hover .nomeUsuario{
+    color: #000;
+}
+.imgUsuario{
+    width: 40px;
+    margin-right: 5px;
+}
+.nomeUsuario{
+    color: #333;
+    font-family: cursive;
+    font-size: 20px;
+    font-weight: bold;
+}
+.btnSairLogin{
+    width: 18px;
+    margin-left: 18px;
 }

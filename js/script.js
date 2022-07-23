@@ -1,7 +1,7 @@
 //Jquery
 $(function(){
     //variáveis globais
-    var ajaxG = 'php/ajax.php'
+    var urlAjaxG = 'php/ajax.php'
     var usuarioG = ''
 	var requisitosSenhaG = '<div class="forcaPass-requisitos-forca">'+
             '<span>Excelente</span>'+
@@ -32,13 +32,15 @@ $(function(){
     
     $('.forcaPass-requisitos').html(requisitosSenhaG)
 
+    verificaLogin()
+
 //ajax
-    //login
+    //ajax - login
     function login(usuario, senha){
         let resultado = false
 
         $.ajax({
-            url: ajaxG,
+            url: urlAjaxG,
             data: {login: true, usuario:usuario, senha:senha},
             type: 'POST',
             dataType: 'json',
@@ -51,6 +53,45 @@ $(function(){
         return resultado
     }
 
+    //ajax - verificar se tem usuário logado
+    function verificaLogin(){
+        $.ajax({
+            url: urlAjaxG,
+            data: {verificaLogin: true},
+            type: 'POST',
+            dataType: 'json',
+            success: function(retorno){
+                if(retorno){
+                    usuarioG = retorno
+
+                    let nomeUsuario = usuarioG.nome
+                    let imgUsuario = usuarioG.img ? usuarioG.img : 'img/usuarios/padrao.png'
+                    
+                    $('.formLogin').hide()
+                    $('.areaUsuario').css('display', 'flex')
+
+                    $('.nomeUsuario').html( nomeUsuario )
+                    $('.imgUsuario').attr('src', imgUsuario)
+
+                }else{
+                    $('.formLogin').css('display', 'flex')
+                    $('.areaUsuario').hide()
+                }
+            }
+        }).fail(function(jqXHR, textStatus){
+            console.log( 'Falha no ajax: verificaLogin()' )
+        })
+    }
+
+    //get, desconectar usuário
+    function sairLogin(){
+        $.get(urlAjaxG, {sairLogin:true}, function(retorno){
+            $('.formLogin').css('display', 'flex')
+            $('.areaUsuario').hide()
+            console.log(retorno)
+            verificaLogin()
+        })
+    }
 
 //eventos
     //ao clicar no botão de login
@@ -61,7 +102,20 @@ $(function(){
        
         usuarioG = login(usuario, senha)
 
-        console.log(usuarioG)
+        if( usuarioG ){
+            verificaLogin()
+        }else{
+            alert('Usuário ou senha inválida!')
+        }        
+    }) 
+
+    //ao clicar no botão de desconectar o usuário
+    $('.btnSairLogin').click(function(){
+        let resposta = confirm('Deseja realmente sair, '+ usuarioG.nome +'?')
+
+        if(resposta){
+            sairLogin()
+        }
     })
 
     //ao focar no input
