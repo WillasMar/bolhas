@@ -10,7 +10,7 @@
             $usuario = addslashes($dados['usuario']);
             $senha = md5(addslashes($dados['senha']));
 
-            $sql = 'SELECT * FROM usuarios WHERE usuarios.usuario = ? AND usuarios.senha = ?';
+            $sql = 'SELECT id, usuario, nome FROM usuarios WHERE usuario = ? AND senha = ?';
             $sql = $this->pdo->prepare($sql);
             $sql->execute(array($usuario, $senha));
 

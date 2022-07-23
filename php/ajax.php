@@ -18,4 +18,17 @@
         $_SESSION['usuario'] = $retorno;
         
         echo json_encode($retorno, JSON_FORCE_OBJECT);
-    }   
+    }  
+    
+    //verifica login
+    if( isset($_POST['verificaLogin']) && !empty($_POST['verificaLogin']) ){  
+        //retorna array com dados do usuário salvos anteriormente por login     
+        echo json_encode($_SESSION['usuario'], JSON_FORCE_OBJECT);
+    } 
+
+    //desconectar usuário
+    if( isset($_GET['sairlogin']) && !empty($_GET['sairLogin']) ){
+        unset($_SESSION['usuario']);
+
+        echo true;
+    }
