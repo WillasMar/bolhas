@@ -54,248 +54,301 @@ form .titulo{
     font-family: cursive;
 }
 
+/* modal de base */
+    .modalBase{
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+    .modalBaseArea{
+        width: 800px;
+        height: 400px;
+        background-color: #fff;
+        box-shadow: 0px 0px 3px 1px #ccc;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 50px;
+    }
+    .modalHeader{
+        height: 50px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+    .modalTitulo{
+        color: #444;
+        font-weight: bold;
+        font-family: fantasy;
+    }
+    .btnFecharModal{
+        color: #aaa;
+        cursor: pointer;
+    }
+    .btnFecharModal:hover{
+       color: #000;
+    }
+    .modalBody{
+        height: 300px;
+        border-bottom: 1px solid #ccc;        
+        overflow: auto;
+        padding: 10px;
+        color: #333;
+    }
+    .modalFooter{
+        height: 50px;
+        padding: 10px;
+        display: flex;
+    }
+
 /* campos */
-.campos{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px
-}
-.campo{
-    width: 100%;
-    height: 30px;
-    border: 1px solid #ccc;                
-    background-color: #fff;        
-    padding-left: 5px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    border-radius: 3px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    cursor: text;
-    font-family: cursive, arial;
-}
-.campo .label{
-    background-color: #fff;
-    position: absolute;
-    border-radius: 5px;
-    padding: 0px 5px;
-    cursor: text;
-    color: #555;
-    font-size: 20px;
-    font-family: cursive;
-    /*transition: all 0.3s;*/ /*para caso não usar o animate do jquery*/
-}    
-.campo .labelFocus{ /*usar em conjunto com a classe .label. Não precisa dessa classe caso use o animate do jquery*/
-    margin-top: -35px;
-    font-size: 12px;
-    color: #aaa;
-}
-.campo input{
-    width: 100%;
-    border: 0px;
-    outline: 0;
-    font-size: 14px;
-    font-family: cursive;
-    font-weight: bold;    
-    color: #272727;
-    text-transform: uppercase;
-}
-.campo .inputSenha{
-    text-transform: inherit;
-}
-.campo .btnLimparInput{       
-    background-color: #ccc;
-    padding: 4px 10px;
-    cursor: pointer;
-    color: #666;
-    font-family: arial;
-    font-size: 18px;
-}
-.campo .btnZeraInput:hover{
-    background-color: #aaa;
-    color: #333;
-}
-.campo .btnVerSenha{
-    width: 30px;
-    background-color: #ccc;
-    padding: 2px;
-    cursor: pointer;
-}
+    .campos{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px
+    }
+    .campo{
+        width: 100%;
+        height: 30px;
+        border: 1px solid #ccc;                
+        background-color: #fff;        
+        padding-left: 5px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        border-radius: 3px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: text;
+        font-family: cursive, arial;
+    }
+    .campo .label{
+        background-color: #fff;
+        position: absolute;
+        border-radius: 5px;
+        padding: 0px 5px;
+        cursor: text;
+        color: #555;
+        font-size: 20px;
+        font-family: cursive;
+        /*transition: all 0.3s;*/ /*para caso não usar o animate do jquery*/
+    }    
+    .campo .labelFocus{ /*usar em conjunto com a classe .label. Não precisa dessa classe caso use o animate do jquery*/
+        margin-top: -35px;
+        font-size: 12px;
+        color: #aaa;
+    }
+    .campo input{
+        width: 100%;
+        border: 0px;
+        outline: 0;
+        font-size: 14px;
+        font-family: cursive;
+        font-weight: bold;    
+        color: #272727;
+        text-transform: uppercase;
+    }
+    .campo .inputSenha{
+        text-transform: inherit;
+    }
+    .campo .btnLimparInput{       
+        background-color: #ccc;
+        padding: 4px 10px;
+        cursor: pointer;
+        color: #666;
+        font-family: arial;
+        font-size: 18px;
+    }
+    .campo .btnZeraInput:hover{
+        background-color: #aaa;
+        color: #333;
+    }
+    .campo .btnVerSenha{
+        width: 30px;
+        background-color: #ccc;
+        padding: 2px;
+        cursor: pointer;
+    }
 
 /* Requisitos senha */
-.forcaPass{
-    position: absolute;		
-    display: none;
-    font-size: 10px;
-    padding: 0px 5px;
-    margin-top: 35px;
-    margin-left: 10px;
-    border-radius: 10px;
-}
-.forcaPass-fraca{
-    background-color: indianred;
-}
-.forcaPass-media{
-    background-color: orange;
-}
-.forcaPass-forte{
-    background-color: springgreen;
-}
-.forcaPass-excelente{
-    background-color: seagreen;
-}
-.forcaPass-verRequisitos{
-    width: 15px;
-    margin-left: 10px;	    
-    border-radius: 50%;    
-    background-color: #fff;
-    opacity: 0.3;
-    cursor: pointer;
-    text-align: center;
-    font-weight: bold;
-    color: #000;
-}
-.forcaPass-verRequisitos:hover{
-    background-color: yellow;
-    opacity: 1;
-}
-.forcaPass-verRequisitos-ativo{
-    background-color: yellow;
-    opacity: 1;
-}
-.forcaPass-requisitos{
-    display: none;
-    position: absolute;
-    margin-top: 14px;
-    margin-left: -6px;	    
-    background-color: lightgoldenrodyellow;
-    padding: 10px;
-    border-radius: 3px;
-    flex-wrap: wrap;
-    z-index: 1;
-    color: #000;
-}
-.forcaPass-requisitos-forca{
-    display: flex;
-    flex-direction: column;
-    min-width: 155px;
-    padding-right: 5px;
-    margin-bottom: 15px;
-}
-.forcaPass-requisitos-forca span:first-child{
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-decoration: underline;
-}
+    .forcaPass{
+        position: absolute;		
+        display: none;
+        font-size: 10px;
+        padding: 0px 5px;
+        margin-top: 35px;
+        margin-left: 10px;
+        border-radius: 10px;
+    }
+    .forcaPass-fraca{
+        background-color: indianred;
+    }
+    .forcaPass-media{
+        background-color: orange;
+    }
+    .forcaPass-forte{
+        background-color: springgreen;
+    }
+    .forcaPass-excelente{
+        background-color: seagreen;
+    }
+    .forcaPass-verRequisitos{
+        width: 15px;
+        margin-left: 10px;	    
+        border-radius: 50%;    
+        background-color: #fff;
+        opacity: 0.3;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        color: #000;
+    }
+    .forcaPass-verRequisitos:hover{
+        background-color: yellow;
+        opacity: 1;
+    }
+    .forcaPass-verRequisitos-ativo{
+        background-color: yellow;
+        opacity: 1;
+    }
+    .forcaPass-requisitos{
+        display: none;
+        position: absolute;
+        margin-top: 14px;
+        margin-left: -6px;	    
+        background-color: lightgoldenrodyellow;
+        padding: 10px;
+        border-radius: 3px;
+        flex-wrap: wrap;
+        z-index: 1;
+        color: #000;
+    }
+    .forcaPass-requisitos-forca{
+        display: flex;
+        flex-direction: column;
+        min-width: 155px;
+        padding-right: 5px;
+        margin-bottom: 15px;
+    }
+    .forcaPass-requisitos-forca span:first-child{
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-decoration: underline;
+    }
 
 /* botões */
-.botoes{
-    width: 100%;
-    display: flex;
-}
-.botoes .botao{
-    width: 100%;
-    margin: 10px;
-}
-.botao{
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px 5px;
-    background-color: #ccc;
-    background: linear-gradient(0deg, #ccc, #fff);
-    border-radius: 5px;
-    border: 1px solid #aaa;
-    cursor: pointer;
-    color: #666;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: cursive;
-    transition: all 0.3s;
-}
-.botao:hover{
-    background-color: #aaa;
-    background: linear-gradient(0deg, #aaa, #ddd);
-    color: #333;
-    font-size: 19px;
-}
-.botao:active{
-    font-size: 24px;
-}
-.botao-dark{
-    background: linear-gradient(0deg, #222, #aaa);
-    color: #fff;
-}
-.botao-dark:hover{
-    background: linear-gradient(0deg, #000, #aaa);
-    color: #fff;
-}
-.botao-turquesa-escura{
-    background: linear-gradient(0deg, #00ced1, #fff);
-    color: #333;
-}
-.botao-turquesa-escura:hover{
-    background: linear-gradient(0deg, #00ced1, #fff);
-    color: #000;
-}
+    .botoes{
+        width: 100%;
+        display: flex;
+    }
+    .botoes .botao{
+        width: 100%;
+        margin: 10px;
+    }
+    .botao{
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 5px;
+        background-color: #ccc;
+        background: linear-gradient(0deg, #ccc, #fff);
+        border-radius: 5px;
+        border: 1px solid #aaa;
+        cursor: pointer;
+        color: #666;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: cursive;
+        transition: all 0.3s;
+    }
+    .botao:hover{
+        background-color: #aaa;
+        background: linear-gradient(0deg, #aaa, #ddd);
+        color: #333;
+        font-size: 19px;
+    }
+    .botao:active{
+        font-size: 24px;
+    }
+    .botao-dark{
+        background: linear-gradient(0deg, #222, #aaa);
+        color: #fff;
+    }
+    .botao-dark:hover{
+        background: linear-gradient(0deg, #000, #aaa);
+        color: #fff;
+    }
+    .botao-turquesa-escura{
+        background: linear-gradient(0deg, #00ced1, #fff);
+        color: #333;
+    }
+    .botao-turquesa-escura:hover{
+        background: linear-gradient(0deg, #00ced1, #fff);
+        color: #000;
+    }
 
 /* form de login */
-.formLogin{
-    display: none;
-    width: auto;
-    margin: 0px;
-    flex-direction: row;
-    align-items: center;
-    background-color: transparent;
-    border: 0px;
-}
-.formLogin .campos{
-    flex-direction: row;
-    margin-top: 0px;
-}
-.formLogin .campo{
-    margin-right: 5px;
-    margin-bottom: 0px;
-}
-.formLogin .botoes{
-    width: auto;
-}
-.formLogin .botao{
-    width: 130px;
-    margin: 0px;
-    margin-left: 5px;
-}
+    .formLogin{
+        display: none;
+        width: auto;
+        margin: 0px;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+        border: 0px;
+    }
+    .formLogin .campos{
+        flex-direction: row;
+        margin-top: 0px;
+    }
+    .formLogin .campo{
+        margin-right: 5px;
+        margin-bottom: 0px;
+    }
+    .formLogin .botoes{
+        width: auto;
+    }
+    .formLogin .botao{
+        width: 130px;
+        margin: 0px;
+        margin-left: 5px;
+    }
 
 /* area usuário */
-.areaUsuario{
-    width: 100%;
-    display: none;
-    justify-content: flex-end;
-    align-items: center;
-}
-.areaUsuario .usuario{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    cursor: pointer;
-}
-.areaUsuario .usuario:hover .nomeUsuario{
-    color: #000;
-}
-.imgUsuario{
-    width: 40px;
-    margin-right: 5px;
-}
-.nomeUsuario{
-    color: #333;
-    font-family: cursive;
-    font-size: 20px;
-    font-weight: bold;
-}
-.btnSairLogin{
-    width: 18px;
-    margin-left: 18px;
-}
+    .areaUsuario{
+        width: 100%;
+        display: none;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .areaUsuario .usuario{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        cursor: pointer;
+    }
+    .areaUsuario .usuario:hover .nomeUsuario{
+        color: #000;
+    }
+    .imgUsuario{
+        width: 40px;
+        margin-right: 5px;
+    }
+    .nomeUsuario{
+        color: #333;
+        font-family: cursive;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .btnSairLogin{
+        width: 18px;
+        margin-left: 18px;
+    }

@@ -22,13 +22,17 @@
     
     //verifica login
     if( isset($_POST['verificaLogin']) && !empty($_POST['verificaLogin']) ){  
-        //retorna array com dados do usuário salvos anteriormente por login     
-        echo json_encode($_SESSION['usuario'], JSON_FORCE_OBJECT);
+        //retorna array com dados do usuário salvos anteriormente por login  
+        if(isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])){
+            echo json_encode($_SESSION['usuario'], JSON_FORCE_OBJECT);
+        }else{
+            echo json_encode(false, JSON_FORCE_OBJECT);
+        }
     } 
 
     //desconectar usuário
-    if( isset($_GET['sairlogin']) && !empty($_GET['sairLogin']) ){
+    if( isset($_GET['sairLogin']) && !empty($_GET['sairLogin'])){
         unset($_SESSION['usuario']);
-
-        echo true;
     }
+
+

@@ -1,10 +1,12 @@
 //Jquery
 $(function(){
-    //variáveis globais
-    var urlAjaxG = 'php/ajax.php'
+    //variáveis globais    
     var usuarioG = ''
-	var requisitosSenhaG = '<div class="forcaPass-requisitos-forca">'+
-            '<span>Excelente</span>'+
+
+    //variáveis constantes
+    const urlAjaxG = './php/ajax.php'
+	const requisitosSenhaG = '<div class="forcaPass-requisitos-forca">'+
+        '<span>Excelente</span>'+
             '<span>Tamanho mínimo de 10 dígitos</span>'+
             '<span>Números</span>'+
             '<span>Letras Minúsculas</span>'+
@@ -30,8 +32,10 @@ $(function(){
             '<span>Até 2 caractere repetidos</span>'+
         '</div>'
     
+    //atualiza o requisitos de senha
     $('.forcaPass-requisitos').html(requisitosSenhaG)
 
+    //verifica se tem usuário logado
     verificaLogin()
 
 //ajax
@@ -77,23 +81,39 @@ $(function(){
                     $('.formLogin').css('display', 'flex')
                     $('.areaUsuario').hide()
                 }
+
+                limparCampos()
             }
         }).fail(function(jqXHR, textStatus){
             console.log( 'Falha no ajax: verificaLogin()' )
+            console.log('jqXHR: '+Object.values(jqXHR))
+            console.log('textStatus: '+textStatus)
         })
     }
 
     //get, desconectar usuário
     function sairLogin(){
-        $.get(urlAjaxG, {sairLogin:true}, function(retorno){
-            $('.formLogin').css('display', 'flex')
-            $('.areaUsuario').hide()
-            console.log(retorno)
-            verificaLogin()
+        $.get(urlAjaxG, "sairLogin=true").done(function(retorno){
+           verificaLogin()
+       }).fail(function(jqXHR, textStatus){
+            alert('Não foi possível sair! '+textStatus)
         })
     }
 
+    //limpar campos
+    function limparCampos(){
+        $('.campo input').val('')
+        $('.campo input').blur()
+        $('.forcaPass').hide()
+        $('.campo .label').removeClass('labelFocus')        
+    }
+
 //eventos
+    //ao clicar no botão de fechar modal
+    $('.btnFecharModal').click(function(){
+        $(this).closest('.modalBase').hide('fast')
+    })
+
     //ao clicar no botão de login
     $('#btnLogin').click(function(){
         let tabela = $(this).attr('data-tabela')
