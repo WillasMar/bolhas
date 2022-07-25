@@ -12,9 +12,32 @@
     //usado pra salvar retorno das classes
     $retorno = array();
 
+    //inserir ou alterar
+    if(isset($_POST['incluirAlterar']) && !empty($_POST['incluirAlterar'])){
+        $tabela = $_POST['tabela'];
+
+        switch ($tabela) {
+            case 'usuarios':
+                $retorno = $usuarios->incluirAlterar($_POST); //inclui ou altera usuário
+
+                //verifica resultado pra atualizar seção
+                if($retorno['result']){
+                    $_SESSION['usuario'] = $retorno['usuario'];
+                }
+                break;
+            
+            default:
+                $retorno['result'] = false;
+                $retorno['msg'] = 'Tabela '.$tabela.' inválida!';
+                break;
+        }
+
+        echo json_encode($retorno, JSON_FORCE_OBJECT);
+    }
+
     //login
     if( isset($_POST['login']) && !empty($_POST['login']) ){
-        $retorno = $usuarios->getUsuario($_POST);
+        $retorno = $usuarios->login($_POST);
         $_SESSION['usuario'] = $retorno;
         
         echo json_encode($retorno, JSON_FORCE_OBJECT);

@@ -4,10 +4,12 @@
 }
 body{
     margin: 0px;
+    padding: 0px;
 }
 :root{
     --formBg: white;
     --tituloForm: #000;
+    --widthBotao: 130px;
 }
 .area{
     width: 100%;
@@ -43,16 +45,6 @@ form{
     background-color: var(--formBg);
     margin: 30px auto;
 }
-form .titulo{
-    position: absolute;
-    color: var(--tituloForm);    
-    background-color: var(--formBg);
-    margin-top: -30px;
-    border-radius: 5px;
-    padding: 0px 10px;
-    font-size: 20px;
-    font-family: cursive;
-}
 
 /* modal de base */
     .modalBase{
@@ -67,25 +59,20 @@ form .titulo{
     }
     .modalBaseArea{
         width: 800px;
-        height: 400px;
         background-color: #fff;
-        box-shadow: 0px 0px 3px 1px #ccc;
         border-radius: 5px;
         margin: auto;
         margin-top: 50px;
     }
-    .modalHeader{
-        height: 50px;
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-    }
     .modalTitulo{
-        color: #444;
-        font-weight: bold;
-        font-family: fantasy;
+        position: absolute;
+        color: var(--tituloForm);    
+        background-color: var(--formBg);
+        margin-top: -40px;
+        border-radius: 5px;
+        padding: 0px 15px;
+        font-size: 30px;
+        font-family: cursive;
     }
     .btnFecharModal{
         color: #aaa;
@@ -105,6 +92,9 @@ form .titulo{
         height: 50px;
         padding: 10px;
         display: flex;
+    }
+    .modalPequeno{
+        width: 400px;
     }
 
 /* campos */
@@ -128,6 +118,13 @@ form .titulo{
         align-items: center;
         cursor: text;
         font-family: cursive, arial;
+    }
+    .campo .required{
+        position: absolute;
+        color: red;
+        margin-left: -5px;
+        margin-top: 5px;
+        font-size: 14px;
     }
     .campo .label{
         background-color: #fff;
@@ -221,7 +218,7 @@ form .titulo{
     .forcaPass-requisitos{
         display: none;
         position: absolute;
-        margin-top: 14px;
+        margin-top: 10px;
         margin-left: -6px;	    
         background-color: lightgoldenrodyellow;
         padding: 10px;
@@ -294,6 +291,22 @@ form .titulo{
         background: linear-gradient(0deg, #00ced1, #fff);
         color: #000;
     }
+    .botao-verde{
+        background: linear-gradient(0deg, #008000, #fff);
+        color: #333;
+    }
+    .botao-verde:hover{
+        background: linear-gradient(0deg, #008000, #fff);
+        color: #000;
+    }
+    .botao-vermelho{
+        background: linear-gradient(0deg, #ff0000, #fff);
+        color: #333;
+    }
+    .botao-vermelho:hover{
+        background: linear-gradient(0deg, #ff0000, #fff);
+        color: #000;
+    }
 
 /* form de login */
     .formLogin{
@@ -317,9 +330,17 @@ form .titulo{
         width: auto;
     }
     .formLogin .botao{
-        width: 130px;
+        width: var(--widthBotao);
         margin: 0px;
         margin-left: 5px;
+    }
+
+/* form de cadastro */
+    .formCadastro .botoes{
+        justify-content: space-between;
+    }
+    .formCadastro .botao{
+        width: var(--widthBotao);
     }
 
 /* area usuário */
@@ -340,7 +361,16 @@ form .titulo{
     }
     .imgUsuario{
         width: 40px;
-        margin-right: 5px;
+        margin-right: 10px;
+    }
+    .loginUsuario{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .saldacaoUsuario{
+        font-size: 14px;
+        color: #333;
     }
     .nomeUsuario{
         color: #333;
@@ -350,5 +380,5 @@ form .titulo{
     }
     .btnSairLogin{
         width: 18px;
-        margin-left: 18px;
+        margin-left: 20px;
     }

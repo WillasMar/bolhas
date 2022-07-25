@@ -39,7 +39,29 @@ $(function(){
     verificaLogin()
 
 //ajax
-    //ajax - login
+    //ajax, cadastrar ou alterar
+    function incluirAlterar(dados){
+        let resultado = false
+
+        $.ajax({
+            url: urlAjaxG,            
+            data: dados, 
+            type:'POST',           
+            dataType: "json",
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: false,
+            success: function(retorno){ resultado = retorno }
+
+        }).fail(function(jqXHR, textStatus){
+            console.log( 'Falha no ajax: incluirAlterar()' )
+        })
+
+        return resultado
+    }
+
+    //ajax, login
     function login(usuario, senha){
         let resultado = false
 
@@ -57,7 +79,7 @@ $(function(){
         return resultado
     }
 
-    //ajax - verificar se tem usuário logado
+    //ajax, verificar se tem usuário logado
     function verificaLogin(){
         $.ajax({
             url: urlAjaxG,
@@ -82,12 +104,10 @@ $(function(){
                     $('.areaUsuario').hide()
                 }
 
-                limparCampos()
+                limpaCampos()
             }
         }).fail(function(jqXHR, textStatus){
             console.log( 'Falha no ajax: verificaLogin()' )
-            console.log('jqXHR: '+Object.values(jqXHR))
-            console.log('textStatus: '+textStatus)
         })
     }
 
@@ -96,12 +116,13 @@ $(function(){
         $.get(urlAjaxG, "sairLogin=true").done(function(retorno){
            verificaLogin()
        }).fail(function(jqXHR, textStatus){
-            alert('Não foi possível sair! '+textStatus)
+            alert('Não foi possível sair!')
+            console.log( 'Falha no get: sairLogin()' )
         })
     }
 
     //limpar campos
-    function limparCampos(){
+    function limpaCampos(){
         $('.campo input').val('')
         $('.campo input').blur()
         $('.forcaPass').hide()
@@ -109,9 +130,28 @@ $(function(){
     }
 
 //eventos
+    //ao da submit no form de cadastro
+    $('form').submit(function(e){
+        //para submit
+        e.preventDefault()
+
+        //pega campos do formulário
+        let dados = new FormData(this)
+
+        //adiciona chamada no php, id do usuário e tabela do banco
+        dados.append('incluirAlterar', true)
+        dados.append( 'idAlterar', usuarioG.id ? usuarioG.id : '' )
+        dados.append( 'tabela', $(this).attr('data-tabela') )
+
+        console.log( incluirAlterar(dados) )
+    })
+
+
     //ao clicar no botão de fechar modal
     $('.btnFecharModal').click(function(){
         $(this).closest('.modalBase').hide('fast')
+
+        limpaCampos()
     })
 
     //ao clicar no botão de login
@@ -128,6 +168,11 @@ $(function(){
             alert('Usuário ou senha inválida!')
         }        
     }) 
+
+    //abrir modal
+    $('.btnModal').click(function(){
+        $($(this).attr('data-modal')).show('fast')
+    })
 
     //ao clicar no botão de desconectar o usuário
     $('.btnSairLogin').click(function(){
@@ -156,7 +201,6 @@ $(function(){
                 }, 300)
             }
         })
-
     })
 
     //ao sair do input
@@ -259,11 +303,12 @@ $(function(){
     })
 
     //ver requisitos de senha
-    $('.campo .forcaPass-verRequisitos').click(function(){
+    $('.forcaPass-verRequisitos').click(function(){
         let requisitos = $(this).parent().find('.forcaPass-requisitos')
-
-        //se tiver aberto
-        if( !parseInt($(requisitos).attr('data-status')) ){
+        let status = parseInt($(requisitos).attr('data-status'))
+        
+        //se tiver fechado
+        if( !status ){
             $(this).addClass('forcaPass-verRequisitos-ativo')            
             $(requisitos).css('display', 'flex') //mostra requisitos
             $(requisitos).attr('data-status', 1) //muda status pra aberto
@@ -309,22 +354,6 @@ $(function(){
             $(this).attr('src', 'img/campos/olhoFechado.png')
             $(this).parent().find('input').attr('type', 'password')
             $(this).parent().find('input').focus()
-        }        
-    })
-
-    //ao clicar no botão de ver requisitos da senha
-    $('.campo .verRequisitos').click(function(){
-        //verifica se os requisitos está fechado
-        if( !parseInt( $(this).parent().find('.requisitos').attr('data-status')) ){
-            $(this).parent().find('.requisitos').css('display', 'flex')
-            $(this).parent().find('.requisitos').attr('data-status', '1')
-            $(this).parent().css('border-bottom-left-radius', '0px')
-            $(this).parent().css('border-bottom-right-radius', '0px')
-        }else{
-            $(this).parent().find('.requisitos').hide()
-            $(this).parent().find('.requisitos').attr('data-status', '0')
-            $(this).parent().css('border-bottom-left-radius', '10px')
-            $(this).parent().css('border-bottom-right-radius', '10px')
         }        
     })
 })

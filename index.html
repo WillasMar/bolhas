@@ -18,11 +18,13 @@
             </div>
             <form id="formLogin" class="formLogin"  method="POST">
                 <div class="campos camposFormLogin">
+                    <!-- Usuário -->
                     <div class="campo">
                         <label for="inputUsuario" class="label">Usuário</label>
                         <input type="text" name="usuario" id="inputUsuario">
                         <div class="btnLimparInput" title="Limpar campo!">x</div>
                     </div>
+                    <!-- senha -->
                     <div class="campo">
                         <label for="inputSenha" class="label">Senha</label>                        
                         <div class="forcaPass forcaPass-fraca">
@@ -38,29 +40,69 @@
                 </div>
                 <div class="botoes">
                     <div class="botao botao-turquesa-escura" id="btnLogin">Entrar</div>
-                    <div class="botao botao-dark" id="btnCadastrar">Cadastrar</div>
+                    <div class="botao botao-dark btnModal" data-modal="#modalCadUser">Cadastrar</div>
                 </div>
             </form>
             <div class="areaUsuario">
                 <div class="usuario">
                     <img src="img/usuarios/padrao.png" class="imgUsuario" id="imgUsuario">
-                    <div class="nomeUsuario" id="nomeUsuario">Usuário</div>
+                    <div class="loginUsuario">
+                        <div class="saldacaoUsuario">Seja bem vindo(a)</div>
+                        <div class="nomeUsuario">Usuário</div>
+                    </div>
                     <img src="img/desligar.png" class="btnSairLogin" title="Clique para desconectar!">
                 </div>                
             </div>
         </div>
     </div>
 
-    <!-- modal de aviso -->
-    <div class="modalBase modalAviso">
-        <div class="modalBaseArea">
-            <div class="modalHeader">
-                <div class="modalTitulo">Aviso!</div>
-                <div class="btnFecharModal" title="Cliquer para fechar modal!">x</div>
+    <!-- modal cadastro usuário -->
+    <div class="modalBase" id="modalCadUser">
+        <form id="formCadastroUsuario" method="POST" data-tabela="usuarios" class="modalBaseArea modalPequeno">
+            <!-- titulo -->
+            <div class="modalTitulo">Cadastro</div>
+            <!-- campos -->
+            <div class="campos camposFormLogin">
+                <!-- Usuário -->
+                <div class="campo">
+                    <div class="required">*</div>
+                    <label for="inputUsuarioCadastro" class="label">Usuário</label>
+                    <input type="text" name="usuario" id="inputUsuarioCadastro" required>
+                    <div class="btnLimparInput" title="Limpar campo!">x</div>
+                </div>
+                <!-- Nome -->
+                <div class="campo">
+                    <div class="required">*</div>
+                    <label for="inputNomeCadastro" class="label">Nome</label>
+                    <input type="text" name="nome" id="inputNomeCadastro" required>
+                    <div class="btnLimparInput" title="Limpar campo!">x</div>
+                </div>
+                <!-- Email -->
+                <div class="campo">
+                    <label for="inputEmailCadastro" class="label">E-mail</label>
+                    <input type="email" name="email" id="inputEmailCadastro">
+                    <div class="btnLimparInput" title="Limpar campo!">x</div>
+                </div>
+                <!-- Senha -->
+                <div class="campo">
+                    <div class="required">*</div>
+                    <label for="inputSenhaCadastro" class="label">Senha</label>                      
+                    <div class="forcaPass forcaPass-fraca">
+                        <div class="forcaPass-forca">Fraca</div>
+                        <div class="forcaPass-verRequisitos" title="Cliquer para ver ou ocultar os requisitos!">?</div>
+                        <div class="forcaPass-requisitos" data-status='0'>
+                            <!--Pelo scriptPadrao.js-->
+                        </div>
+                    </div>
+                    <input type="password" name="senha" class="inputSenha inputVerificaSenha" id="inputSenhaCadastro" required>
+                    <img src="img/campos/olhoFechado.png" class="btnVerSenha" data-status="0">
+                </div>
             </div>
-            <div class="modalBody"></div>
-            <div class="modalFooter"></div>
-        </div>        
+            <div class="botoes">
+                <input type="submit" value="Confirmar" form="formCadastroUsuario" class="botao botao-verde">
+                <div class="botao botao-vermelho btnFecharModal">Cancelar</div>
+            </div>
+        </form>      
     </div>
 
     <!-- Interface Menu Principal -->

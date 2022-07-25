@@ -1,7 +1,7 @@
 /* Snippet box-sizing */
-html { box-sizing: border-box; }
-*, *::before, *::after {box-sizing: inherit;}
-* { margin: 0; padding: 0; overflow: hidden; }
+/* html { box-sizing: border-box; } */
+/* *, *::before, *::after {box-sizing: inherit;} */
+/* * { margin: 0; padding: 0; overflow: hidden; } */
 html, body { height: 100%;}
 /* Fim Snippet */
 
