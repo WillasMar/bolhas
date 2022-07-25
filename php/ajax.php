@@ -12,10 +12,20 @@
     //usado pra salvar retorno das classes
     $retorno = array();
 
+    /*
+    //teste de incluirAlterar
+    $_POST['incluirAlterar'] = true;
+    $_POST['tabela'] = 'usuarios';
+    $_POST['idAlterar'] = '';
+    $_POST['usuario'] = 'willasmar7';
+    $_POST['nome'] = 'Willas Prata2';
+    $_POST['email'] = '';
+    $_POST['senha'] = '888';*/
+
     //inserir ou alterar
     if(isset($_POST['incluirAlterar']) && !empty($_POST['incluirAlterar'])){
         $tabela = $_POST['tabela'];
-
+        
         switch ($tabela) {
             case 'usuarios':
                 $retorno = $usuarios->incluirAlterar($_POST); //inclui ou altera usuário

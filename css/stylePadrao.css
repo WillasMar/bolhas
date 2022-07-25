@@ -96,6 +96,9 @@ form{
     .modalPequeno{
         width: 400px;
     }
+    .modalMedio{
+        width: 800px;
+    }
 
 /* campos */
     .campos{

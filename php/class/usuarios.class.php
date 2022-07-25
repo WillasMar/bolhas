@@ -28,7 +28,7 @@
             $usuario = strtoupper(addslashes($dados['usuario']));
             $nome = strtoupper(addslashes($dados['nome']));
             $email = addslashes($dados['email']);
-            $senha = md5(addslashes($dados['senha']));
+            $senha = $dados['senha'] ? md5(addslashes($dados['senha'])) : '';
 
             //array de retorno
             $retorno['result'] = false;
@@ -37,18 +37,28 @@
             $retorno['usuario'] = array();
 
             //inserir, se idAlterar for vazio
-            if( empty($idAterar) ){
+            if( empty($idAlterar) ){
+                $retorno['acao'] = 'insert';
+                
                 //verifica se recebeu dados obrigatórios
-                if($usuario && $nome && $senha){                    
-                    $sql = 'insert into usuarios(usuario, nome, email, senha)values(?, ?, ?, ?)';
-                    $sql = $this->pdo->prepare($sql);
-                    $sql->execute(array($usuario,$nome, $email, $senha));
+                if($usuario && $nome && $senha){
+                    //busca por usuário
+                    $usuarioExistente = $this->getUsuario($usuario, '');
+                    
+                    //se usuário não existir
+                    if(!$usuarioExistente){
+                        $sql = 'insert into usuarios(usuario, nome, email, senha)values(?, ?, ?, ?)';
+                        $sql = $this->pdo->prepare($sql);
+                        $sql->execute(array($usuario,$nome, $email, $senha));
 
-                    $result['result'] = true;
-                    $retorno['msg'] = 'Cadastro bem sucedido! ID: '.$this->pdo->lastInsertId();
-                    $result['acao'] = 'insert';
-                    $result['usuario'] = $this->getUsuario('', $this->pdo->lastInsertId());
+                        $retorno['result'] = true;
+                        $retorno['msg'] = 'Cadastro bem sucedido! ID: '.$this->pdo->lastInsertId();
+                        $retorno['usuario'] = $this->getUsuario('', $this->pdo->lastInsertId());
 
+                    }else{
+                        $retorno['result'] = false;
+                        $retorno['msg'] = 'Usuário já Cadastrado!';
+                    }
                 }else{
                     $retorno['result'] = false;
                     $retorno['msg'] = 'Usuário, Nome ou Senha não recebido!';
@@ -56,44 +66,64 @@
 
             //alterar
             }else{
+                $retorno['acao'] = 'update';
+
                 //verifica se recebeu dados obrigatórios
                 if($usuario && $nome){
-                    //se informou senha
-                    if($senha){
-                        $sql = 'update usuarios set usuario = ?, nome = ?, email = ?, senha = ? where id = ?';
-                        $sql = $this->pdo->prepare($sql);
-                        $sql->execute(array($usuario, $nome, $email, $senha, $idAlterar));
+                    //busca por usuário
+                    $usuarioExistente = $this->getUsuario('', $idAlterar);                    
                     
-                    }else{
-                        $sql = 'update usuarios set usuario = ?, nome = ?, email = ? where id = ?';
-                        $sql = $this->pdo->prepare($sql);
-                        $sql->execute(array($usuario, $nome, $email, $idAlterar));
-                    }
+                    //se existir usuário com idAlterar
+                    if($usuarioExistente){
+                        //busca por usuário
+                        $usuarioExistente = $this->getUsuario($usuario, '');
 
-                    $retorno['result'] = true;
-                    $retorno['msg'] = 'Alteração bem sucedida! ID: '.$idAlterar;
-                    $result['acao'] = 'update';
-                    $result['usuario'] = $this->getUsuario('', $idAlterar);
+                        //se não existir usuário com nome escolhido
+                        if(!$usuarioExistente){
+                            //se informou senha
+                            if($senha){
+                                $sql = 'update usuarios set usuario = ?, nome = ?, email = ?, senha = ? where id = ?';
+                                $sql = $this->pdo->prepare($sql);
+                                $sql->execute(array($usuario, $nome, $email, $senha, $idAlterar));
+                            
+                            }else{
+                                $sql = 'update usuarios set usuario = ?, nome = ?, email = ? where id = ?';
+                                $sql = $this->pdo->prepare($sql);
+                                $sql->execute(array($usuario, $nome, $email, $idAlterar));
+                            }
+
+                            $retorno['result'] = true;
+                            $retorno['msg'] = 'Alteração bem sucedida! ID: '.$idAlterar;
+                            $retorno['usuario'] = $this->getUsuario('', $idAlterar);
+                        
+                        }else{
+                            $retorno['result'] = false;
+                            $retorno['msg'] = 'Usuário já cadastrado!'; 
+                        }
+                    }else{
+                        $retorno['result'] = false;
+                        $retorno['msg'] = 'Usuário não encontrado!';
+                    }
 
                 }else{
                     $retorno['result'] = false;
                     $retorno['msg'] = 'Usuário ou Nome não recebido!';
                 } 
-            }  
+            }
 
             return $retorno;           
         }
 
         //verificar usuário existente
-        function getUsuario($user, $id){
-            $usuario = addslashes($user);
-            $id = addslashes($id)
+        function getUsuario($_usuario, $_id){
+            $usuario = addslashes($_usuario);
+            $id = addslashes($_id);
 
             $sql = "select id, usuario, nome, email, img from usuarios where usuario = ? or id = ?";
             $sql = $this->pdo->prepare($sql);
             $sql->execute(array($usuario, $id));
 
-            if($sql->rowCount > 0){
+            if($sql->rowCount() > 0){
                 return $sql->fetch();
             }else{
                 return false;

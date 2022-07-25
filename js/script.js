@@ -35,7 +35,6 @@ $(function(){
     //atualiza o requisitos de senha
     $('.forcaPass-requisitos').html(requisitosSenhaG)
 
-    //verifica se tem usuário logado
     verificaLogin()
 
 //ajax
@@ -83,11 +82,13 @@ $(function(){
     function verificaLogin(){
         $.ajax({
             url: urlAjaxG,
-            data: {verificaLogin: true},
+            data: { verificaLogin: true },
             type: 'POST',
             dataType: 'json',
-            success: function(retorno){
+            success: function(retorno){ 
+                //se tiver usuário logado
                 if(retorno){
+                    //salva usuário
                     usuarioG = retorno
 
                     let nomeUsuario = usuarioG.nome
@@ -105,7 +106,7 @@ $(function(){
                 }
 
                 limpaCampos()
-            }
+             }
         }).fail(function(jqXHR, textStatus){
             console.log( 'Falha no ajax: verificaLogin()' )
         })
@@ -129,6 +130,44 @@ $(function(){
         $('.campo .label').removeClass('labelFocus')        
     }
 
+    function exibeOcultaCampos(labels, acao){
+        //percorre labels
+        for(let item of labels){
+            let label = item
+            let inputVal = $(label).parent().find('input').val()
+
+            //exibe
+            if(acao){
+                //cria animação pra mostrar
+                $(label).animate({
+                    'margin-top': '-35px',
+                    'font-size': '12px',
+                    'color': '#aaa'
+                },{
+                    duration: 300,
+                    complete:function(){
+                        $(label).animate({
+                            'margin-left': '-5px'
+                        }, 300)
+                    }
+                })
+
+            //mostra
+            }else{
+                //verifica se o campo está vazio
+                if( !$(inputVal) ){
+                    //cria animação pra ocultar
+                    $(label).animate({
+                        'margin-top': '0px',
+                        'font-size': '20px',
+                        'color': '#555',
+                        'margin-left': '0px'
+                    },300 )
+                }
+            }
+        }
+    }
+
 //eventos
     //ao da submit no form de cadastro
     $('form').submit(function(e){
@@ -143,9 +182,21 @@ $(function(){
         dados.append( 'idAlterar', usuarioG.id ? usuarioG.id : '' )
         dados.append( 'tabela', $(this).attr('data-tabela') )
 
+        //envia dados para inclusão ou alteração
+        $retorno = incluirAlterar(dados)
+
+        //se inclusão ou alteração teve sucesso
+        if($retorno.result == true || $retorno.result == 'true'){
+            $('.modalBase').hide('fast')
+            verificaLogin()
+            limpaCampos()
+        
+        }else{
+            alert( $retorno.msg )
+        }
+
         console.log( incluirAlterar(dados) )
     })
-
 
     //ao clicar no botão de fechar modal
     $('.btnFecharModal').click(function(){
@@ -166,8 +217,24 @@ $(function(){
             verificaLogin()
         }else{
             alert('Usuário ou senha inválida!')
+
         }        
-    }) 
+    })
+
+    //ao clicar no botão de cadastro
+    $('.btnLoginCadastro').click(function(){
+        $('#modalCadUser').show('fast')
+
+        console.log(usuarioG)
+
+        if(usuarioG){
+            //preenche campos
+            $('#modalCadUser #inputUsuarioCadastro').val( usuarioG.usuario )
+            $('#modalCadUser #inputNomeCadastro').val( usuarioG.nome )
+            $('#modalCadUser #inputEmailCadastro').val( usuarioG.email )
+            $('#modalCadUser #imgUsuarioCadastro').val( usuarioG.img )
+        } 
+    })
 
     //abrir modal
     $('.btnModal').click(function(){
@@ -183,41 +250,20 @@ $(function(){
         }
     })
 
-    //ao focar no input
+    //ao focar no input, exibe campo
     $('.campo input').focus(function(){
-        //busca label do campo
-        let label = $(this).parent().find('.label')
+        //busca label do campo para ser passado num array
+        let label = [ $(this).parent().find('.label') ]
 
-        //cria animação
-        $(label).animate({
-            'margin-top': '-35px',
-            'font-size': '12px',
-            'color': '#aaa'
-        },{
-            duration: 300,
-            complete:function(){
-                $(label).animate({
-                    'margin-left': '-5px'
-                }, 300)
-            }
-        })
+        exibeOcultaCampos(label, 1)
     })
 
-    //ao sair do input
+    //ao sair do input. oculta campo
     $('.campo input').blur(function(){
-        //verifica se o campo não está preenchido
-        if( !$(this).val() ){
-            //busca label do campo
-            let label = $(this).parent().find('.label')
+        //busca label do campo para ser passado num array
+        let label = [ $(this).parent().find('.label') ]
 
-            //cria animação
-            $(label).animate({
-                'margin-top': '0px',
-                'font-size': '20px',
-                'color': '#555',
-                'margin-left': '0px'
-            },300 )
-        }        
+        exibeOcultaCampos(label, 0)
     })
 
     //evento ao digitar a senha pra exibir a força
