@@ -99,10 +99,14 @@ $(function(){
 
                     $('.nomeUsuario').html( nomeUsuario )
                     $('.imgUsuario').attr('src', imgUsuario)
+                    $('#inputSenhaCadastro').removeAttr('required')
+                    $('#inputSenhaCadastro').parent().find('.required').hide()
 
                 }else{
                     $('.formLogin').css('display', 'flex')
                     $('.areaUsuario').hide()
+                    $('#inputSenhaCadastro').attr('required', '')
+                    $('#inputSenhaCadastro').parent().find('.required').show()
                 }
 
                 limpaCampos()
@@ -124,38 +128,56 @@ $(function(){
 
     //limpar campos
     function limpaCampos(){
+        let labels = $('.labels')
+
         $('.campo input').val('')
         $('.campo input').blur()
         $('.forcaPass').hide()
         $('.campo .label').removeClass('labelFocus')        
     }
 
-    function exibeOcultaCampos(labels, acao){
+    //mostra ou exibe campos
+    function exibeOcultaCampos(labels, acao, alteracao){
         //percorre labels
         for(let item of labels){
             let label = item
             let inputVal = $(label).parent().find('input').val()
 
-            //exibe
-            if(acao){
-                //cria animação pra mostrar
-                $(label).animate({
-                    'margin-top': '-35px',
-                    'font-size': '12px',
-                    'color': '#aaa'
-                },{
-                    duration: 300,
-                    complete:function(){
-                        $(label).animate({
-                            'margin-left': '-5px'
-                        }, 300)
+            if(acao){ //1: exibe
+                if( alteracao ){ //se for alteração
+                    if( inputVal ){  //se campo estiver preenchido                    
+                        $(label).animate({ //cria animação pra mostrar
+                            'margin-top': '-35px',
+                            'font-size': '12px',
+                            'color': '#aaa'
+                        },{
+                            duration: 300,
+                            complete:function(){
+                                $(label).animate({
+                                    'margin-left': '-5px'
+                                }, 300)
+                            }
+                        })
                     }
-                })
+                }else{                    
+                    $(label).animate({ //cria animação pra mostrar
+                        'margin-top': '-35px',
+                        'font-size': '12px',
+                        'color': '#aaa'
+                    },{
+                        duration: 300,
+                        complete:function(){
+                            $(label).animate({
+                                'margin-left': '-5px'
+                            }, 300)
+                        }
+                    })
+                }
 
             //mostra
-            }else{
+            }else{                
                 //verifica se o campo está vazio
-                if( !$(inputVal) ){
+                if( !inputVal ){
                     //cria animação pra ocultar
                     $(label).animate({
                         'margin-top': '0px',
@@ -225,14 +247,17 @@ $(function(){
     $('.btnLoginCadastro').click(function(){
         $('#modalCadUser').show('fast')
 
-        console.log(usuarioG)
-
         if(usuarioG){
+            let labels = $('#modalCadUser .label')
+
             //preenche campos
             $('#modalCadUser #inputUsuarioCadastro').val( usuarioG.usuario )
             $('#modalCadUser #inputNomeCadastro').val( usuarioG.nome )
             $('#modalCadUser #inputEmailCadastro').val( usuarioG.email )
-            $('#modalCadUser #imgUsuarioCadastro').val( usuarioG.img )
+            $('#modalCadUser #imgUsuarioCadastro').val( usuarioG.img )            
+
+            exibeOcultaCampos( labels, 1, 1 )
+            $('#modalCadUser #inputUsuarioCadastro').focus()
         } 
     })
 
@@ -255,7 +280,7 @@ $(function(){
         //busca label do campo para ser passado num array
         let label = [ $(this).parent().find('.label') ]
 
-        exibeOcultaCampos(label, 1)
+        exibeOcultaCampos(label, 1, 0)
     })
 
     //ao sair do input. oculta campo
@@ -263,7 +288,7 @@ $(function(){
         //busca label do campo para ser passado num array
         let label = [ $(this).parent().find('.label') ]
 
-        exibeOcultaCampos(label, 0)
+        exibeOcultaCampos(label, 0, 0)
     })
 
     //evento ao digitar a senha pra exibir a força

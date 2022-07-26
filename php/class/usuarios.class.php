@@ -79,7 +79,7 @@
                         $usuarioExistente = $this->getUsuario($usuario, '');
 
                         //se não existir usuário com nome escolhido
-                        if(!$usuarioExistente){
+                        if( !$usuarioExistente || ($idAlterar == $usuarioExistente['id']) ){
                             //se informou senha
                             if($senha){
                                 $sql = 'update usuarios set usuario = ?, nome = ?, email = ?, senha = ? where id = ?';
@@ -99,6 +99,7 @@
                         }else{
                             $retorno['result'] = false;
                             $retorno['msg'] = 'Usuário já cadastrado!'; 
+                            $retorno['usuario'] = $usuarioExistente;
                         }
                     }else{
                         $retorno['result'] = false;

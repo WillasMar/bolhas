@@ -155,7 +155,7 @@ form{
         color: #272727;
         text-transform: uppercase;
     }
-    .campo .inputSenha{
+    .campo .inputText{
         text-transform: inherit;
     }
     .campo .btnLimparInput{       
@@ -384,4 +384,5 @@ form{
     .btnSairLogin{
         width: 18px;
         margin-left: 20px;
+        cursor: pointer;
     }
