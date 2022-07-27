@@ -45,6 +45,17 @@ form{
     background-color: var(--formBg);
     margin: 30px auto;
 }
+.areaImg img{
+    width: 100%;
+    height: 100%;
+}
+.areaGif{
+    position: absolute;
+    display: none;
+}
+.mudandoImg{
+    opacity: 0.5;
+}
 
 /* modal de base */
     .modalBase{
@@ -68,7 +79,7 @@ form{
         position: absolute;
         color: var(--tituloForm);    
         background-color: var(--formBg);
-        margin-top: -40px;
+        margin-top: -44px;
         border-radius: 5px;
         padding: 0px 15px;
         font-size: 30px;
@@ -338,14 +349,6 @@ form{
         margin-left: 5px;
     }
 
-/* form de cadastro */
-    .formCadastro .botoes{
-        justify-content: space-between;
-    }
-    .formCadastro .botao{
-        width: var(--widthBotao);
-    }
-
 /* area usuário */
     .areaUsuario{
         width: 100%;
@@ -385,4 +388,54 @@ form{
         width: 18px;
         margin-left: 20px;
         cursor: pointer;
+    }
+
+/* form de cadastro */
+    .formCadastro .botoes{
+        justify-content: space-between;
+    }
+    .formCadastro .botao{
+        width: var(--widthBotao);
+    }
+    .areaImgCad{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .areaImgCad-botoes{
+        width: 0px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: absolute;
+        margin-left: -190px;
+        background: rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.5s;
+    }
+    .areaImgCad-botoes .areaImg{
+        width: 40px;
+        height: 30px;
+        cursor: pointer;        
+    }
+    .areaImgCad-botoes .areaImg:hover{
+        background: rgba(0, 0, 0, 0.2);
+    }
+    .areaImgCad-botoes .areaImg img{
+        padding: 5px;
+    }
+    .areaImgCad:hover .areaImgCad-botoes{
+        width: 40px;
+    }
+    #inputMudarFoto{
+        display: none;
+    }
+    #imgUsuarioCad{
+        width: 200px;
+        height: 200px;
+        margin: 0px;
+    }
+    .areaImgCadUsuario .areaGif{
+        width: 100px;
     }

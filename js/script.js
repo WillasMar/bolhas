@@ -190,6 +190,22 @@ $(function(){
         }
     }
 
+    //mostrar gif de carregando envio
+	function envioGif(obj, funcao){	
+		//verifica se é pra mostrar gif
+		if(funcao){
+			$(obj).attr('data-envio', '1')
+			$(obj).find("img").show()
+			$(obj).attr('type','button') //retira submit
+			$(obj).addClass('btnCarregando') //classe carregando
+		}else{
+			$(obj).attr('data-envio', '0')
+			$(obj).find("img").hide()
+			$(obj).attr('type','submit') //habilita submit
+			$(obj).removeClass('btnCarregando') //classe carregando
+		}
+	}
+
 //eventos
     //ao da submit no form de cadastro
     $('form').submit(function(e){
@@ -426,5 +442,21 @@ $(function(){
             $(this).parent().find('input').attr('type', 'password')
             $(this).parent().find('input').focus()
         }        
+    })
+
+    //previsualizar imagem no cadastro
+    $('.inputImgCad').change(function(){
+        let obj = $('.carregaGif')
+
+        envioGif(obj, true)
+
+        let reader = new FileReader()
+        reader.onload = imageIsLoaded
+        reader.readAsDataURL(this.files[0])
+
+        function imageIsLoaded(e) {
+            $('.areaFoto img').attr('src', e.target.result)
+            envioGif(obj, false)
+        };
     })
 })
