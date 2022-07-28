@@ -5,6 +5,7 @@ $(function(){
 
     //variáveis constantes
     const urlAjaxG = './php/ajax.php'
+    const imgPadraoUsuarioG = 'img/usuarios/padrao.png'
 	const requisitosSenhaG = '<div class="forcaPass-requisitos-forca">'+
         '<span>Excelente</span>'+
             '<span>Tamanho mínimo de 10 dígitos</span>'+
@@ -86,19 +87,18 @@ $(function(){
             type: 'POST',
             dataType: 'json',
             success: function(retorno){ 
+                usuarioG = retorno
+                
                 //se tiver usuário logado
                 if(retorno){
-                    //salva usuário
-                    usuarioG = retorno
-
                     let nomeUsuario = usuarioG.nome
-                    let imgUsuario = usuarioG.img ? usuarioG.img : 'img/usuarios/padrao.png'
+                    let imgUsuario = usuarioG.img ? usuarioG.img : imgPadraoUsuarioG
                     
                     $('.formLogin').hide()
                     $('.areaUsuario').css('display', 'flex')
 
                     $('.nomeUsuario').html( nomeUsuario )
-                    $('.imgUsuario').attr('src', imgUsuario)
+                    $('.imgUsuario').attr('src', imgUsuario.replace('../', ''))
                     $('#inputSenhaCadastro').removeAttr('required')
                     $('#inputSenhaCadastro').parent().find('.required').hide()
 
@@ -120,9 +120,13 @@ $(function(){
     function sairLogin(){
         $.get(urlAjaxG, "sairLogin=true").done(function(retorno){
            verificaLogin()
-       }).fail(function(jqXHR, textStatus){
-            alert('Não foi possível sair!')
-            console.log( 'Falha no get: sairLogin()' )
+       })
+    }
+
+    //get, remover foto
+    function removerImg(img){
+        $.get(urlAjaxG, "removerFoto=true&img="+img).done(function(retorno){
+            verificaLogin()
         })
     }
 
@@ -191,18 +195,14 @@ $(function(){
     }
 
     //mostrar gif de carregando envio
-	function envioGif(obj, funcao){	
+	function gifCarregando(obj, funcao){	
 		//verifica se é pra mostrar gif
 		if(funcao){
-			$(obj).attr('data-envio', '1')
-			$(obj).find("img").show()
-			$(obj).attr('type','button') //retira submit
-			$(obj).addClass('btnCarregando') //classe carregando
+			$(obj).css('display', 'flex')
+			$(obj).parent().find('.areaGifCarregando').addClass('gifCarregando') //classe carregando
 		}else{
-			$(obj).attr('data-envio', '0')
-			$(obj).find("img").hide()
-			$(obj).attr('type','submit') //habilita submit
-			$(obj).removeClass('btnCarregando') //classe carregando
+			$(obj).hide()
+			$(obj).parent().find('.areaGifCarregando').removeClass('gifCarregando') //classe carregando
 		}
 	}
 
@@ -233,7 +233,7 @@ $(function(){
             alert( $retorno.msg )
         }
 
-        console.log( incluirAlterar(dados) )
+        console.log( $retorno )
     })
 
     //ao clicar no botão de fechar modal
@@ -446,17 +446,34 @@ $(function(){
 
     //previsualizar imagem no cadastro
     $('.inputImgCad').change(function(){
-        let obj = $('.carregaGif')
-
-        envioGif(obj, true)
+        let obj = $(this).closest('.areaImgCad').find('.areaGif')
+        let img = $(this).closest('.areaImgCad').find('.areaImgCadastro img')
+        
+        gifCarregando(obj, true)
 
         let reader = new FileReader()
         reader.onload = imageIsLoaded
         reader.readAsDataURL(this.files[0])
 
         function imageIsLoaded(e) {
-            $('.areaFoto img').attr('src', e.target.result)
-            envioGif(obj, false)
+            $(img).attr('src', e.target.result)
+            gifCarregando(obj, false)
         };
+    })
+
+    //remove a foto do usuário
+    $('.btnUsuarioRemoverFoto').click(function(){       
+        //se usuário estiver logado e ter imagem
+        if(usuarioG && usuarioG.img){
+            let resp = confirm('Deseja realmente remover a foto!')
+            removerImg(usuarioG.img)
+
+            $(this).closest('.areaImgCad').find('.areaImgCad-botoes #inputMudarFoto').val('')
+            $(this).closest('.areaImgCad').find('.areaImgCadastro img').attr('src', imgPadraoUsuarioG)
+           
+        }else{
+            $(this).closest('.areaImgCad').find('.areaImgCad-botoes #inputMudarFoto').val('')
+            $(this).closest('.areaImgCad').find('.areaImgCadastro img').attr('src', imgPadraoUsuarioG)
+        }
     })
 })

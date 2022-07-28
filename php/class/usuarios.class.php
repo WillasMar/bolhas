@@ -54,11 +54,14 @@
                         $retorno['result'] = true;
                         $retorno['msg'] = 'Cadastro bem sucedido! ID: '.$this->pdo->lastInsertId();
                         $retorno['usuario'] = $this->getUsuario('', $this->pdo->lastInsertId());
-
+                    
+                    //Já existe
                     }else{
                         $retorno['result'] = false;
                         $retorno['msg'] = 'Usuário já Cadastrado!';
                     }
+
+                //Dados incompletos
                 }else{
                     $retorno['result'] = false;
                     $retorno['msg'] = 'Usuário, Nome ou Senha não recebido!';
@@ -68,7 +71,7 @@
             }else{
                 $retorno['acao'] = 'update';
 
-                //verifica se recebeu dados obrigatórios
+                //se recebeu dados obrigatórios
                 if($usuario && $nome){
                     //busca por usuário
                     $usuarioExistente = $this->getUsuario('', $idAlterar);                    
@@ -96,16 +99,20 @@
                             $retorno['msg'] = 'Alteração bem sucedida! ID: '.$idAlterar;
                             $retorno['usuario'] = $this->getUsuario('', $idAlterar);
                         
+                        //Já cadastrado
                         }else{
                             $retorno['result'] = false;
                             $retorno['msg'] = 'Usuário já cadastrado!'; 
                             $retorno['usuario'] = $usuarioExistente;
                         }
+                    
+                    //Não encontrado
                     }else{
                         $retorno['result'] = false;
                         $retorno['msg'] = 'Usuário não encontrado!';
                     }
 
+                //Dados incompletos
                 }else{
                     $retorno['result'] = false;
                     $retorno['msg'] = 'Usuário ou Nome não recebido!';

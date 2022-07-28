@@ -53,7 +53,7 @@ form{
     position: absolute;
     display: none;
 }
-.mudandoImg{
+.gifCarregando{
     opacity: 0.5;
 }
 
@@ -287,7 +287,7 @@ form{
         font-size: 19px;
     }
     .botao:active{
-        font-size: 24px;
+        font-size: 17px;
     }
     .botao-dark{
         background: linear-gradient(0deg, #222, #aaa);
@@ -368,6 +368,7 @@ form{
     .imgUsuario{
         width: 40px;
         margin-right: 10px;
+        border-radius: 50%;
     }
     .loginUsuario{
         display: flex;
@@ -428,7 +429,7 @@ form{
     .areaImgCad:hover .areaImgCad-botoes{
         width: 40px;
     }
-    #inputMudarFoto{
+    #inputFotoCad{
         display: none;
     }
     #imgUsuarioCad{
