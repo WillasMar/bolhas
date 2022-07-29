@@ -22,8 +22,9 @@
         $largura = 500; //largura máxima a ser definida
         $altura = 500; //altura máxima a ser definida
         $folder = '../img/'.$tabela.'/'.$id.'/'; //diretório
-        $imgSalvar = $folder.'img_'.$id.'_'.rand(0, 999).'.png'; //define um nome
-    
+        $imgSalvarNome = 'img_'.$id.'_'.rand(0, 999).'.png'; //nome da imagem
+        $imgSalvar = $folder.$imgSalvarNome; //define um nome   
+
         removerImg($imgAtual);
 
         //se não existir o diretório, cria
@@ -82,7 +83,7 @@
         //define no banco a imagem
         $sql = 'update '.$tabela.' set img = ? where id = ?';
         $sql = $pdo->prepare($sql);
-        $sql->execute(array($imgSalvar ,$id));
+        $sql->execute(array($imgSalvar, $id));
 
         return $imgSalvar;
     }

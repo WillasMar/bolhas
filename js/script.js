@@ -109,7 +109,10 @@ $(function(){
                     $('#inputSenhaCadastro').parent().find('.required').show()
                 }
 
-                limpaCampos()
+                //se não tiver usuário logado, limpa os campos
+                if(!usuarioG){
+                    limpaCampos()
+                }                
              }
         }).fail(function(jqXHR, textStatus){
             console.log( 'Falha no ajax: verificaLogin()' )
@@ -221,19 +224,19 @@ $(function(){
         dados.append( 'tabela', $(this).attr('data-tabela') )
 
         //envia dados para inclusão ou alteração
-        $retorno = incluirAlterar(dados)
+        retorno = incluirAlterar(dados)
 
         //se inclusão ou alteração teve sucesso
-        if($retorno.result == true || $retorno.result == 'true'){
+        if(retorno.result == true || retorno.result == 'true'){
             $('.modalBase').hide('fast')
             verificaLogin()
             limpaCampos()
         
         }else{
-            alert( $retorno.msg )
+            alert( retorno.msg )
         }
 
-        console.log( $retorno )
+        console.log('InclurAlterar: ' + retorno.result)
     })
 
     //ao clicar no botão de fechar modal
@@ -458,7 +461,7 @@ $(function(){
         function imageIsLoaded(e) {
             $(img).attr('src', e.target.result)
             gifCarregando(obj, false)
-        };
+        }
     })
 
     //remove a foto do usuário
