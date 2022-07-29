@@ -6,6 +6,7 @@ $(function(){
     //variáveis constantes
     const urlAjaxG = './php/ajax.php'
     const imgPadraoUsuarioG = 'img/usuarios/padrao.png'
+    const sonsG = ['sfx/bubble-1.wav', 'sfx/egg-bubble-pop.wav', 'sfx/liquid-bubble.wav', 'sfx/soap-bobble-sound.wav']
 	const requisitosSenhaG = '<div class="forcaPass-requisitos-forca">'+
         '<span>Excelente</span>'+
             '<span>Tamanho mínimo de 10 dígitos</span>'+
@@ -112,7 +113,7 @@ $(function(){
                 //se não tiver usuário logado, limpa os campos
                 if(!usuarioG){
                     limpaCampos()
-                }                
+                }               
              }
         }).fail(function(jqXHR, textStatus){
             console.log( 'Falha no ajax: verificaLogin()' )
@@ -265,7 +266,7 @@ $(function(){
     //ao clicar no botão de cadastro
     $('.btnLoginCadastro').click(function(){
         $('#modalCadUser').show('fast')
-
+        
         if(usuarioG){
             let labels = $('#modalCadUser .label')
 
@@ -277,12 +278,16 @@ $(function(){
 
             exibeOcultaCampos( labels, 1, 1 )
             $('#modalCadUser #inputUsuarioCadastro').focus()
-        } 
+        }
     })
 
     //abrir modal
     $('.btnModal').click(function(){
         $($(this).attr('data-modal')).show('fast')
+
+        if(!usuarioG){
+            $('.imgUsuario').attr('src', imgPadraoUsuarioG)
+        }
     })
 
     //ao clicar no botão de desconectar o usuário
@@ -478,5 +483,13 @@ $(function(){
             $(this).closest('.areaImgCad').find('.areaImgCad-botoes #inputMudarFoto').val('')
             $(this).closest('.areaImgCad').find('.areaImgCadastro img').attr('src', imgPadraoUsuarioG)
         }
+    })
+
+    $('.imgLogo').click(function(){
+        let somLogo = document.getElementById('somLogo')        
+        let som = Math.floor(Math.random() * 3)
+
+        somLogo.src = sonsG[som]
+        somLogo.play()
     })
 })

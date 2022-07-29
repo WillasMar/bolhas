@@ -22,6 +22,7 @@ body{
     display: flex;    
     box-shadow: 0px 0px 3px 1px #fff;
     background-color: aliceblue;
+    background: linear-gradient(45deg, mediumpurple, #fff);
 }
 .areaIntTopo{
     display: flex;
@@ -32,7 +33,24 @@ body{
     align-items: center;
 }
 .logo img{
-    width: 50px;
+    width: 100px;
+    height: 100px;
+    margin: 5px 0px;
+    background: linear-gradient(0deg, purple 0%, #fff);
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0px 4px 8px 2px #000;
+    cursor: pointer; 
+    transition: all 0.5s;
+}
+.logo img:hover{
+    padding: 12px;
+    background: linear-gradient(0deg, purple 30%, #fff);
+    box-shadow: 0px 4px 12px 3px #000;
+}
+.logo img:active{
+    background: linear-gradient(0deg, purple 20%, #fff);
+    box-shadow: 0px 0px 5px 0px #000;
 }
 form{
     display: flex;
@@ -74,13 +92,14 @@ form{
         border-radius: 5px;
         margin: auto;
         margin-top: 50px;
+        box-shadow: 0px -3px 0px 2px #000;
     }
     .modalTitulo{
         position: absolute;
-        color: var(--tituloForm);    
-        background-color: var(--formBg);
-        margin-top: -44px;
-        border-radius: 5px;
+        color: #fff;    
+        background-color: #000;
+        margin-top: -50px;
+        border-radius: 2px;
         padding: 0px 15px;
         font-size: 30px;
         font-family: cursive;
@@ -283,6 +302,7 @@ form{
     .botao:hover{
         background-color: #aaa;
         background: linear-gradient(0deg, #aaa, #ddd);
+        box-shadow: 0px 1px 2px 0px #000;
         color: #333;
         font-size: 19px;
     }
@@ -365,11 +385,15 @@ form{
     .areaUsuario .usuario:hover .nomeUsuario{
         color: #000;
     }
+    .areaUsuario .usuario:hover .imgUsuario{
+        box-shadow: -0px 1px 1px 0px #000;
+    }
     .imgUsuario{
         width: 40px;
         height: 40px;
         margin-right: 10px;
         border-radius: 50%;
+        border: 1px solid #000;
     }
     .loginUsuario{
         display: flex;
@@ -389,7 +413,14 @@ form{
     .btnSairLogin{
         width: 18px;
         margin-left: 20px;
-        cursor: pointer;
+        cursor: pointer;        
+    }
+    .btnSairLogin:hover{
+        box-shadow: 0px 1px 1px 0px #000;
+        border-radius: 50%;
+    }
+    .btnSairLogin:active{
+        width: 17px;
     }
 
 /* form de cadastro */
