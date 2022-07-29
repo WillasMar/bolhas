@@ -405,10 +405,12 @@ form{
         color: #333;
     }
     .nomeUsuario{
+        max-width: 250px;
         color: #333;
         font-family: cursive;
         font-size: 20px;
         font-weight: bold;
+        text-align: left;
     }
     .btnSairLogin{
         width: 18px;
