@@ -474,10 +474,13 @@ $(function(){
         //se usuário estiver logado e ter imagem
         if(usuarioG && usuarioG.img){
             let resp = confirm('Deseja realmente remover a foto!')
-            removerImg(usuarioG.img)
 
-            $(this).closest('.areaImgCad').find('.areaImgCad-botoes #inputMudarFoto').val('')
-            $(this).closest('.areaImgCad').find('.areaImgCadastro img').attr('src', imgPadraoUsuarioG)
+            if(resp){
+                removerImg(usuarioG.img)
+
+                $(this).closest('.areaImgCad').find('.areaImgCad-botoes #inputMudarFoto').val('')
+                $(this).closest('.areaImgCad').find('.areaImgCadastro img').attr('src', imgPadraoUsuarioG)
+            }
            
         }else{
             $(this).closest('.areaImgCad').find('.areaImgCad-botoes #inputMudarFoto').val('')
