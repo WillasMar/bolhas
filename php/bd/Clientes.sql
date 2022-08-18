@@ -16,7 +16,8 @@ select * from clientes
 
 insert into clientes( id_endereco, id_auxiliar, nome, razao, cpf, cnpj, rg, inscricao_estadual, inscricao_municipal, 
 	email, data_cadastro )
-VALUES( '4','','ELISANGELA','','','','','','','' ,NOW() )
+VALUES( '0','','SARA','','','','','','','' ,NOW() )
+
 
 update clientes set id_endereco = '4', id_auxiliar = '', nome = 'ELISANGELA' , razao = '', cpf = '', cnpj = '', 
 	rg = '', inscricao_estadual = '', inscricao_municipal = '', email = 'meu.email@email.com', data_alteracao = now()
